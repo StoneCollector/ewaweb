@@ -1,14 +1,9 @@
 const express = require('express');
-const path = require('path');
-const serverless = require('serverless-http');
-
-
-const express = require('express');
 const { kv } = require('@vercel/kv');
 const path = require('path');
-
+const serverless = require('serverless-http');
 const app = express();
-const port = process.env.PORT || 3000;
+
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));

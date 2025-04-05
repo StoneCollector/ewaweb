@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const serverless = require('serverless-http');
-
+const fs = require('fs');
+const visitFile = 'visits.json';
+let visitCounts = {};
 const app = express();
 
 // Serve static files from public/
@@ -35,10 +37,7 @@ app.get('/recycling-guide', (req, res) => {
 
 
 //Bound => visits section
-const fs = require('fs');
-const visitFile = 'visits.json';
 
-let visitCounts = {};
 
 // Load existing counts on startup
 if (fs.existsSync(visitFile)) {

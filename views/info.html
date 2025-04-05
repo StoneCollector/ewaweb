@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Awareness | Information Hub</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #81c784;
+            --accent: #ffeb3b;
+            --dark: #1b5e20;
+            --light: #e8f5e9;
+            --danger: #d32f2f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .page-header {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .section {
+            padding: 4rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+        }
+        
+        .info-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: #555;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-btn:hover:not(.active) {
+            color: var(--dark);
+            border-bottom-color: var(--secondary);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .info-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .info-card:hover .info-card-image img {
+            transform: scale(1.05);
+        }
+        
+        .info-card-content {
+            padding: 1.5rem;
+        }
+        
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--secondary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .toxic-materials {
+            margin-top: 2rem;
+        }
+        
+        .material-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .material-item h3 {
+            color: var(--danger);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .material-item h3 i {
+            margin-right: 0.5rem;
+        }
+        
+        .material-item .sources {
+            font-style: italic;
+            margin-top: 0.5rem;
+            color: #777;
+        }
+        
+        .faq-section {
+            margin-top: 3rem;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            display: none;
+            padding-top: 0.5rem;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        .infographic {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-col ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 15px;
+            }
+            
+            .left::after, .right::after {
+                left: 15px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-recycle"></i>
+                <span>E-Waste Awareness</span>
+            </div>
+            <button class="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/info-hub">Information Hub</a></li>
+                    <li><a href="/recycling-guide">Recycling Guide</a></li>
+                    <li><a href="/calculator">E-Waste Calculator</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>E-Waste Information Hub</h1>
+            <p>Learn about electronic waste, its environmental impact, and the regulations designed to manage it properly.</p>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="info-tabs">
+                <button class="tab-btn active" data-tab="what-is">What is E-Waste?</button>
+                <button class="tab-btn" data-tab="laws">Laws & Regulations</button>
+                <button class="tab-btn" data-tab="harmful-effects">Harmful Effects</button>
+                <button class="tab-btn" data-tab="faq">FAQs</button>
+            </div>
+
+            <div id="what-is" class="tab-content active">
+                <div class="section-title">
+                    <h2>What is E-Waste?</h2>
+                </div>
+                
+                <p>Electronic waste, or e-waste, refers to discarded electronic products that have reached the end of their useful life. These include computers, televisions, VCRs, stereos, copiers, fax machines, mobile phones, and other electronic devices.</p>
+                
+                <p>E-waste is one of the fastest-growing waste streams globally, with an estimated 57.4 million metric tons generated in 2024. This growth is driven by rapid technological advancement, decreasing product lifespans, and increasing global demand for electronic devices.</p>
+                
+                <div class="infographic">
+                    <img src="/api/placeholder/800/400" alt="Common E-Waste Components Infographic">
+                    <p><em>Common components that make up electronic waste</em></p>
+                </div>
+                
+                <h3>Common Types of E-Waste</h3>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-image">
+                            <img src="/api/placeholder/400/300" alt="Large Household Appliances">
+                        </div>
+                        <div class="info-card-content">
+                            <h3>Large Household Appliances</h3>
+                            <p>Refrigerators, washing machines, dishwashers, air conditioners, and other large appliances.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-image">
+                            <img src="/api/placeholder/400/300" alt="Small Household Appliances">
+                        </div>
+                        <div class="info-card-content">
+                            <h3>Small Household Appliances</h3>
+                            <p>Vacuum cleaners, microwaves, toasters, electric kettles, and other small appliances.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-image">
+                            <img src="/api/placeholder/400/300" alt="IT and Telecommunications Equipment">
+                        </div>
+                        <div class="info-card-content">
+                            <h3>IT and Telecommunications</h3>
+                            <p>Computers, laptops, tablets, smartphones, modems, routers, and other IT equipment.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-image">
+                            <img src="/api/placeholder/400/300" alt="Consumer Electronics">
+                        </div>
+                        <div class="info-card-content">
+                            <h3>Consumer Electronics</h3>
+                            <p>Televisions, audio equipment, video cameras, and other consumer electronics.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-image">
+                            <img src="/api/placeholder/400/300" alt="Lighting Equipment">
+                        </div>
+                        <div class="info-card-content">
+                            <h3>Lighting Equipment</h3>
+                            <p>Fluorescent lamps, LED lights, high-intensity discharge lamps, and other lighting equipment.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-image">
+                            <img src="/api/placeholder/400/300" alt="Batteries">
+                        </div>
+                        <div class="info-card-content">
+                            <h3>Batteries</h3>
+                            <p>Lithium-ion batteries, nickel-cadmium batteries, lead-acid batteries, and other battery types.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="laws" class="tab-content">
+                <div class="section-title">
+                    <h2>E-Waste Laws & Regulations</h2>
+                </div>
+                
+                <p>As the e-waste crisis continues to grow, countries around the world have implemented various regulations to manage electronic waste properly. These laws typically focus on Extended Producer Responsibility (EPR), which holds manufacturers responsible for the entire lifecycle of their products, including disposal and recycling.</p>
+                
+                <h3>Indian E-Waste Regulations</h3>
+                
+                <div class="material-item">
+                    <h3>E-Waste Management Rules, 2022</h3>
+                    <p>India's latest e-waste management rules focus on the Extended Producer Responsibility (EPR) framework. The key provisions include:</p>
+                    <ul>
+                        <li>Targets for e-waste collection based on the quantity of products placed in the market</li>
+                        <li>Mandatory registration for producers, dismantlers, recyclers, and refurbishers</li>
+                        <li>Implementation of Deposit Refund Scheme (DRS) to encourage return of e-waste</li>
+                        <li>Creation of Producer Responsibility Organizations (PROs) to collect and channel e-waste</li>
+                        <li>Penalties for non-compliance with the EPR targets</li>
+                    </ul>
+                </div>
+                
+                <h3>Global E-Waste Regulations Timeline</h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>2003: EU WEEE Directive</h3>
+                            <p>The European Union introduced the Waste Electrical and Electronic Equipment (WEEE) Directive, requiring manufacturers to take responsibility for recycling their products.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>2011: India's First E-Waste Rules</h3>
+                            <p>India introduced its first comprehensive e-waste rules, focusing on proper handling, collection, and recycling of electronic waste.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>2016: E-Waste Management Rules</h3>
+                            <p>India updated its e-waste regulations, introducing the concept of Extended Producer Responsibility (EPR) with specific collection targets.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>2018: Amendment to E-Waste Rules</h3>
+                            <p>India revised the collection targets for producers and introduced the concept of Producer Responsibility Organizations (PROs).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>2021: EU Right to Repair</h3>
+                            <p>The European Union introduced the "Right to Repair" legislation, requiring manufacturers to make spare parts available and design products for easier repair.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>2022: Latest Indian E-Waste Management Rules</h3>
+                            <p>India updated its e-waste regulations with enhanced EPR framework, stricter monitoring, and revised collection targets.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Key Global Regulations</h3>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-content">
+                            <h3>EU WEEE Directive</h3>
+                            <p>Requires manufacturers to take back and recycle their products at the end of their useful life. The directive sets collection, recycling, and recovery targets for all types of electrical and electronic equipment.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-content">
+                            <h3>EU Right to Repair</h3>
+                            <p>Legislation that requires manufacturers to make products more repairable, including designing them so they can be disassembled with standard tools and making spare parts available for several years.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-content">
+                            <h3>Basel Convention</h3>
+                            <p>International treaty designed to reduce the movement of hazardous waste between nations, particularly from developed to less developed countries.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-content">
+                            <h3>US State Laws</h3>
+                            <p>Over 25 U.S. states have implemented e-waste laws, most employing the Extended Producer Responsibility (EPR) model. California's Electronic Waste Recycling Act is one of the most comprehensive.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="harmful-effects" class="tab-content">
+                <div class="section-title">
+                    <h2>Harmful Effects of E-Waste</h2>
+                </div>
+                
+                <p>Improper disposal of electronic waste can have severe consequences for both human health and the environment. E-waste contains numerous toxic materials that can leach into soil and water sources or release harmful compounds when burned or processed improperly.</p>
+                
+                <div class="toxic-materials">
+                    <h3>Common Toxic Materials in E-Waste</h3>
+                    
+                    <div class="material-item">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Lead</h3>
+                        <p><strong>Found in:</strong> CRT monitors, older circuit boards, solder</p>
+                        <p><strong>Health effects:</strong> Damage to the central and peripheral nervous systems, blood systems, kidneys, and reproductive system. Particularly harmful to children's developing brains.</p>
+                        <p><strong>Environmental impact:</strong> Contaminates soil and groundwater, accumulates in plants and animals, disrupting ecosystems.</p>
+                        <p class="sources">Source: World Health Organization (WHO)</p>
+                    </div>
+                    
+                    <div class="material-item">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Mercury</h3>
+                        <p><strong>Found in:</strong> Switches, flat-screen displays, fluorescent lights</p>
+                        <p><strong>Health effects:</strong> Brain and neurological damage, especially harmful to developing fetuses and young children.</p>
+                        <p><strong>Environmental impact:</strong> Converts to methylmercury in water bodies, which accumulates in fish and marine life, affecting the food chain.</p>
+                        <p class="sources">Source: United Nations Environment Programme (UNEP)</p>
+                    </div>
+                    
+                    <div class="material-item">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Cadmium</h3>
+                        <p><strong>Found in:</strong> Rechargeable batteries, circuit boards, semiconductor chips</p>
+                        <p><strong>Health effects:</strong> Kidney damage, bone disease, and cancer. Classified as a human carcinogen.</p>
+                        <p><strong>Environmental impact:</strong> Highly toxic to plants, animals, and microorganisms. Persists in the environment and bioaccumulates.</p>
+                        <p class="sources">Source: Agency for Toxic Substances and Disease Registry (ATSDR)</p>
+                    </div>
+                    
+                    <div class="material-item">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Brominated Flame Retardants (BFRs)</h3>
+                        <p><strong>Found in:</strong> Plastic casings, circuit boards, cables</p>
+                        <p><strong>Health effects:</strong> Endocrine disruption, impaired brain development, and possible cancer risks.</p>
+                        <p><strong>Environmental impact:</strong> Persist in the environment and bioaccumulate in wildlife and humans.</p>
+                        <p class="sources">Source: Environmental Protection Agency (EPA)</p>
+                    </div>
+                    
+                    <div class="material-item">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Beryllium</h3>
+                        <p><strong>Found in:</strong> Computer motherboards, power supply units</p>
+                        <p><strong>Health effects:</strong> Chronic beryllium disease (CBD), a debilitating lung disease. Classified as a human carcinogen.</p>
+                        <p><strong>Environmental impact:</strong> Can contaminate air through dust particles and affect workers in recycling facilities.</p>
+                        <p class="sources">Source: National Institute for Occupational Safety and Health (NIOSH)</p>
+                    </div>
+                </div>
+                
+                <div class="infographic">
+                    <img src="/api/placeholder/800/500" alt="E-Waste Impact Infographic">
+                    <p><em>Environmental and health impacts of improper e-waste disposal</em></p>
+                </div>
+                
+                <h3>Informal E-Waste Recycling</h3>
+                <p>In many developing countries, informal e-waste recycling is common. Workers, often including children, dismantle electronic devices manually without proper protection, using primitive methods such as open burning to recover valuable metals. These practices release toxic chemicals into the air, soil, and water, creating severe health and environmental hazards.</p>
+                
+                <h3>Social Impact</h3>
+                <p>E-waste mismanagement also has significant social implications, particularly in developing countries where much of the world's e-waste ends up. Communities near informal recycling sites often face elevated rates of respiratory issues, skin diseases, and other health problems.</p>
+            </div>
+
+            <div id="faq" class="tab-content">
+                <div class="section-title">
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                
+                <div class="faq-section">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What exactly qualifies as e-waste?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>E-waste includes all discarded electrical or electronic devices with circuit boards or electrical components. This encompasses computers, televisions, smartphones, tablets, printers, refrigerators, washing machines, air conditioners, lamps, and other household appliances that have reached the end of their useful life.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Why can't e-waste be thrown in regular trash?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>E-waste contains hazardous materials like lead, mercury, cadmium, and brominated flame retardants that can leach into soil and groundwater when disposed of in landfills. Additionally, burning e-waste (which happens in some waste management facilities) releases toxic substances into the air. Proper e-waste recycling facilities are equipped to safely handle these hazardous components.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How does the Extended Producer Responsibility (EPR) system work in India?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Under India's E-Waste Management Rules 2022, manufacturers are responsible for collecting and recycling their products at the end of their life cycle. They must meet annual collection targets based on the quantity of products they put on the market. Producers can fulfill their responsibility by setting up collection centers, implementing buy-back arrangements, or working with authorized Producer Responsibility Organizations (PROs) that handle collection and recycling on their behalf.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What happens to my electronics when I recycle them?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>In a proper recycling facility, your electronic devices are first manually dismantled to remove hazardous components like batteries and mercury-containing parts. The remaining materials are then mechanically shredded and sorted into different categories such as plastics, metals, and circuit boards. These materials undergo further processing to recover valuable resources like gold, silver, copper, and rare earth elements, which can be used to manufacture new products.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is data secure when recycling electronics?

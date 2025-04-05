@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Awareness | Home</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #81c784;
+            --accent: #ffeb3b;
+            --dark: #1b5e20;
+            --light: #e8f5e9;
+            --danger: #d32f2f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1600/800');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .section {
+            padding: 4rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .stats-container {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .stat-box h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .stat-box p {
+            font-size: 1rem;
+        }
+        
+        .intro-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .content-text {
+            padding: 1rem;
+        }
+        
+        .content-text h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .image-container {
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+        
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+        
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover .card-image img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .call-to-action {
+            background-color: var(--light);
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-col ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .intro-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-recycle"></i>
+                <span>E-Waste Awareness</span>
+            </div>
+            <button class="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/info-hub">Information Hub</a></li>
+                    <li><a href="/recycling-guide">Recycling Guide</a></li>
+                    <li><a href="/calculator">E-Waste Calculator</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Reduce, Recycle, Reuse – A Greener Future Starts Here</h1>
+            <p>Join us in the fight against electronic waste and help protect our planet for future generations.</p>
+            <div class="cta-buttons">
+                <a href="/recycling-guide" class="btn">Find Recycling Centers</a>
+                <a href="/calculator" class="btn btn-secondary">Calculate Your Impact</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <h3 id="global-waste-counter">57.4M</h3>
+                        <p>Tons of E-Waste Generated Globally This Year</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>17.4%</h3>
+                        <p>Global E-Waste Recycling Rate</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>$62.5B</h3>
+                        <p>Value of Raw Materials in E-Waste Annually</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <h2>Why E-Waste Matters</h2>
+            </div>
+
+            <div class="intro-content">
+                <div class="content-text">
+                    <h3>The Growing E-Waste Crisis</h3>
+                    <p>Electronic waste, or e-waste, is the fastest growing waste stream in the world. Each year, millions of tons of electronic devices are discarded, creating a mounting environmental crisis.</p>
+                    <p>When electronics end up in landfills, toxic substances like lead, mercury, and cadmium can leach into soil and water, posing serious health risks to humans and wildlife.</p>
+                    <p>By properly recycling your electronic devices, you can help recover valuable materials, reduce pollution, and minimize the environmental impact of technology.</p>
+                    <a href="/info-hub" class="btn">Learn More About E-Waste</a>
+                </div>
+                <div class="image-container">
+                    <img src="/api/placeholder/600/400" alt="E-waste collection">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background-color: var(--light);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Our Resources</h2>
+            </div>
+
+            <div class="info-cards">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="/api/placeholder/400/300" alt="Information Hub">
+                    </div>
+                    <div class="card-content">
+                        <h3>E-Waste Information Hub</h3>
+                        <p>Learn about e-waste definitions, regulations, and the harmful effects of improper disposal on our environment and health.</p>
+                        <a href="/info-hub" class="btn">Explore</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image">
+                        <img src="/api/placeholder/400/300" alt="Recycling Guide">
+                    </div>
+                    <div class="card-content">
+                        <h3>Recycling & Disposal Guide</h3>
+                        <p>Discover how to safely dispose of your electronic devices and find recycling centers near you.</p>
+                        <a href="/recycling-guide" class="btn">Get Started</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image">
+                        <img src="/api/placeholder/400/300" alt="E-Waste Calculator">
+                    </div>
+                    <div class="card-content">
+                        <h3>E-Waste Calculator</h3>
+                        <p>Calculate the environmental impact of your electronic devices and learn how recycling can make a difference.</p>
+                        <a href="/calculator" class="btn">Calculate Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section call-to-action">
+        <div class="container cta-container">
+            <div class="section-title">
+                <h2>Take Action Today</h2>
+            </div>
+            <p>Ready to make a difference? Start recycling your e-waste, join our community discussions, or report illegal dumping in your area.</p>
+            <div class="cta-buttons">
+                <a href="/recycling-guide" class="btn">Find Recycling Centers</a>
+                <a href="/contact" class="btn btn-secondary">Report Illegal Dumping</a>
+                <a href="/blog" class="btn btn-secondary">Join Our Community</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>E-Waste Awareness</h3>
+                    <p>Working towards a sustainable future through proper electronic waste management and education.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/index">Home</a></li>
+                        <li><a href="/info-hub">Information Hub</a></li>
+                        <li><a href="/recycling-guide">Recycling Guide</a></li>
+                        <li><a href="/calculator">E-Waste Calculator</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">E-Waste Laws</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Partner Organizations</a></li>
+                        <li><a href="#">Educational Materials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@e-wasteawareness.org</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Waste Awareness Initiative. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // E-Waste Counter Animation
+        function animateCounter(element, target, duration) {
+            let start = 0;
+            const startTime = performance.now();
+            
+            function updateCounter(currentTime) {
+                const elapsedTime = currentTime - startTime;
+                if (elapsedTime > duration) {
+                    element.textContent = target;
+                    return;
+                }
+                
+                const progress = elapsedTime / duration;
+                const currentValue = Math.floor(progress * parseFloat(target));
+                element.textContent = currentValue + 'M';
+                requestAnimationFrame(updateCounter);
+            }
+            
+            requestAnimationFrame(updateCounter);
+        }
+
+        // Start the counter animation when the page loads
+        window.addEventListener('load', function() {
+            const counterElement = document.getElementById('global-waste-counter');
+            animateCounter(counterElement, 57.4, 2000);
+        });
+
+        // Update waste counter in real-time (simulation)
+        setInterval(function() {
+            const counterElement = document.getElementById('global-waste-counter');
+            const currentValue = parseFloat(counterElement.textContent);
+            const newValue = (currentValue + 0.001).toFixed(3);
+            counterElement.textContent = newValue + 'M';
+        }, 5000);
+    </script>
+</body>
+</html>

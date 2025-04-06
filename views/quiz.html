@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Waste Quiz Teaser</title>
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --secondary: #81c784;
+      --accent: #ffeb3b;
+      --dark: #1b5e20;
+      --light: #e8f5e9;
+      --danger: #d32f2f;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--light);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 800px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s;
+      position: relative;
+    }
+    
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+    
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #555;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s;
+    }
+    
+    img:hover {
+      transform: scale(1.02);
+    }
+    
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .quiz-button {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s, transform 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 1.2rem;
+      animation: pulse 1.8s infinite;
+    }
+    
+    .quiz-button:hover {
+      background-color: var(--dark);
+      transform: scale(1.05);
+    }
+    
+    .back-button {
+      display: inline-block;
+      background-color: var(--secondary);
+      color: #333;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s, transform 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 1.2rem;
+    }
+    
+    .back-button:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: scale(1.05);
+    }
+    
+    .position-back {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      justify-content: center;
+    }
+    
+    .logo i {
+      margin-right: 0.5rem;
+    }
+    
+    @media screen and (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      p {
+        font-size: 1rem;
+      }
+      
+      .quiz-button, .back-button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+      }
+      
+      .container {
+        padding: 1.5rem;
+      }
+      
+      .position-back {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-button position-back">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+    
+    <div class="logo">
+      <i class="fas fa-recycle"></i>
+      <span>E-Waste Awareness</span>
+    </div>
+    
+    <h1>Test Your E-Waste Knowledge!</h1>
+    <p>Take our interactive quiz to learn more about electronic waste and how you can make a difference.</p>
+    <img src="/api/placeholder/600/400" alt="E-waste Quiz" />
+    <p>Discover your impact and learn practical steps to reduce electronic waste.</p>
+    
+    <div class="button-container">
+      <a href="/" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+      <a href="quiz.html" class="quiz-button" onclick="startConfetti(event)">
+        Take the Quiz <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function startConfetti(e) {
+      e.preventDefault(); // prevent navigation until after confetti
+
+      // Launch confetti
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
+      // Redirect after a short delay
+      setTimeout(() => {
+        window.location.href = e.target.href;
+      }, 1200); // 1.2s for effect to finish
+    }
+  </script>
+</body>
+</html>

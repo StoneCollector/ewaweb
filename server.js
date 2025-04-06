@@ -269,6 +269,10 @@ app.get('/blog', (req, res) => {
 app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/contact.html'));
 });
+
+app.get('/quiz', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views/quiz.html'));
+});
 // Export for Vercel
 module.exports = app;
 module.exports.handler = serverless(app);

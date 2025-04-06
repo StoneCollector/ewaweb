@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Awareness | E-Waste Calculator</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #81c784;
+            --accent: #ffeb3b;
+            --dark: #1b5e20;
+            --light: #e8f5e9;
+            --danger: #d32f2f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1600/400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .section {
+            padding: 4rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .calculator-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .calculator-form h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .device-list {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .device-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .device-item:last-child {
+            border-bottom: none;
+        }
+        
+        .device-info {
+            flex-grow: 1;
+        }
+        
+        .device-name {
+            font-weight: 500;
+        }
+        
+        .device-impact {
+            color: var(--danger);
+            font-weight: 500;
+        }
+        
+        .device-actions button {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+        }
+        
+        .results-container {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .results-container h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .result-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-label {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .impact-chart {
+            margin-top: 2rem;
+            height: 300px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .tips-section {
+            margin-top: 3rem;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .tip-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .tip-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tip-card h4 i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-col ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for impact visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-recycle"></i>
+                <span>E-Waste Awareness</span>
+            </div>
+            <button class="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/info-hub">Information Hub</a></li>
+                    <li><a href="/recycling-guide">Recycling Guide</a></li>
+                    <li><a href="/calculator" class="active">E-Waste Calculator</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>E-Waste Impact Calculator</h1>
+            <p>Calculate the environmental impact of your electronic devices and learn how recycling can make a difference.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Calculate Your E-Waste Impact</h2>
+            </div>
+            
+            <div class="calculator-container">
+                <div class="calculator-grid">
+                    <div class="calculator-form">
+                        <h3>Add Your Electronic Devices</h3>
+                        <div class="form-group">
+                            <label for="deviceType">Device Type</label>
+                            <select id="deviceType" class="form-control">
+                                <option value="">-- Select Device Type --</option>
+                                <option value="smartphone">Smartphone</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="desktop">Desktop Computer</option>
+                                <option value="tablet">Tablet</option>
+                                <option value="tv">Television</option>
+                                <option value="printer">Printer</option>
+                                <option value="monitor">Computer Monitor</option>
+                                <option value="keyboard">Keyboard</option>
+                                <option value="mouse">Mouse</option>
+                                <option value="speaker">Speakers</option>
+                                <option value="gaming">Gaming Console</option>
+                                <option value="camera">Digital Camera</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="deviceAge">Device Age (years)</label>
+                            <input type="number" id="deviceAge" class="form-control" min="0" max="20" placeholder="Enter device age">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="replacementFrequency">Replacement Frequency (years)</label>
+                            <input type="number" id="replacementFrequency" class="form-control" min="0" max="10" placeholder="How often do you replace this device?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="disposalMethod">Disposal Method</label>
+                            <select id="disposalMethod" class="form-control">
+                                <option value="">-- Select Disposal Method --</option>
+                                <option value="recycle">Recycle</option>
+                                <option value="trash">Regular Trash</option>
+                                <option value="donate">Donate/Give Away</option>
+                                <option value="store">Store at Home</option>
+                                <option value="trade">Trade In/Sell</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button id="addDeviceBtn" class="btn">Add Device</button>
+                        </div>
+                    </div>
+                    
+                    <div class="device-summary">
+                        <h3>Your E-Waste Summary</h3>
+                        <div class="device-list" id="deviceList">
+                            <p class="text-center" id="noDevicesMsg">No devices added yet. Add your devices to see their impact.</p>
+                            <!-- Device items will be added here dynamically -->
+                        </div>
+                        <button id="calculateImpactBtn" class="btn" disabled>Calculate Total Impact</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-container" id="resultsContainer" style="display: none;">
+                <h3>Your E-Waste Impact Results</h3>
+                <div class="results-grid">
+                    <div class="result-box">
+                        <div class="result-value" id="totalWeight">0</div>
+                        <div class="result-label">Kilograms of E-Waste</div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-value" id="co2Emissions">0</div>
+                        <div class="result-label">CO2 Emissions (kg)</div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-value" id="waterUsage">0</div>
+                        <div class="result-label">Water Usage (Liters)</div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-value" id="recyclingPotential">0</div>
+                        <div class="result-label">Recyclable Materials (%)</div>
+                    </div>
+                </div>
+                
+                <div class="impact-chart">
+                    <canvas id="impactChart"></canvas>
+                </div>
+                
+                <div class="tips-section">
+                    <div class="section-title">
+                        <h2>Reducing Your E-Waste Impact</h2>
+                    </div>
+                    
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <h4><i class="fas fa-sync-alt"></i> Extend Device Lifespan</h4>
+                            <p>Keep your devices longer by taking proper care, performing regular maintenance, and upgrading components when possible instead of replacing the entire device.</p>
+                        </div>
+                        <div class="tip-card">
+                            <h4><i class="fas fa-recycle"></i> Proper Recycling</h4>
+                            <p>Always recycle your electronic devices through certified e-waste recycling centers to ensure hazardous materials are properly handled and valuable resources are recovered.</p>
+                        </div>
+                        <div class="tip-card">
+                            <h4><i class="fas fa-hand-holding-heart"></i> Donate or Sell</h4>
+                            <p>If your devices are still functional, consider donating them to schools, charities, or selling them to extend their useful life before they become waste.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>E-Waste Awareness</h3>
+                    <p>Working towards a sustainable future through proper electronic waste management and education.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/info-hub">Information Hub</a></li>
+                        <li><a href="/recycling-guide">Recycling Guide</a></li>
+                        <li><a href="/calculator">E-Waste Calculator</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">E-Waste Laws</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Partner Organizations</a></li>
+                        <li><a href="#">Educational Materials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@e-wasteawareness.org</li>
+                        <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Vidyalankar Institute of Technology, Wadala, India</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Waste Awareness Initiative. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // E-Waste Calculator Logic
+        const deviceImpactData = {
+            smartphone: { weight: 0.15, co2: 60, water: 12900, recycling: 80 },
+            laptop: { weight: 2.5, co2: 320, water: 19000, recycling: 75 },
+            desktop: { weight: 9.9, co2: 690, water: 22800, recycling: 95 },
+            tablet: { weight: 0.65, co2: 100, water: 13200, recycling: 70 },
+            tv: { weight: 15, co2: 400, water: 15000, recycling: 90 },
+            printer: { weight: 8.5, co2: 330, water: 9500, recycling: 85 },
+            monitor: { weight: 6.0, co2: 260, water: 8400, recycling: 80 },
+            keyboard: { weight: 1.0, co2: 25, water: 1200, recycling: 65 },
+            mouse: { weight: 0.1, co2: 8, water: 800, recycling: 60 },
+            speaker: { weight: 2.0, co2: 70, water: 2500, recycling: 75 },
+            gaming: { weight: 3.8, co2: 250, water: 8900, recycling: 85 },
+            camera: { weight: 0.4, co2: 80, water: 3800, recycling: 70 },
+            other: { weight: 2.0, co2: 120, water: 5000, recycling: 65 }
+        };
+        
+        const disposalImpactFactors = {
+            recycle: { co2: 0.3, water: 0.4, recycling: 1.0 },
+            trash: { co2: 1.5, water: 1.2, recycling: 0.0 },
+            donate: { co2: 0.5, water: 0.7, recycling: 0.8 },
+            store: { co2: 0.1, water: 0.1, recycling: 0.5 },
+            trade: { co2: 0.4, water: 0.6, recycling: 0.9 }
+        };
+        
+        let userDevices = [];
+        let chart = null;
+        
+        // DOM Elements
+        const deviceTypeEl = document.getElementById('deviceType');
+        const deviceAgeEl = document.getElementById('deviceAge');
+        const replacementFrequencyEl = document.getElementById('replacementFrequency');
+        const disposalMethodEl = document.getElementById('disposalMethod');
+        const addDeviceBtn = document.getElementById('addDeviceBtn');
+        const deviceListEl = document.getElementById('deviceList');
+        const noDevicesMsg = document.getElementById('noDevicesMsg');
+        const calculateImpactBtn = document.getElementById('calculateImpactBtn');
+        const resultsContainer = document.getElementById('resultsContainer');
+        
+        // Add device to list
+        addDeviceBtn.addEventListener('click', function() {
+            const deviceType = deviceTypeEl.value;
+            const deviceAge = parseFloat(deviceAgeEl.value);
+            const replacementFrequency = parseFloat(replacementFrequencyEl.value);
+            const disposalMethod = disposalMethodEl.value;
+            
+            // Simple validation
+            if (!deviceType || isNaN(deviceAge) || isNaN(replacementFrequency) || !disposalMethod) {
+                alert('Please fill out all fields.');
+                return;
+            }
+            
+            // Calculate impact for this device
+            const baseImpact = deviceImpactData[deviceType];
+            const disposalFactor = disposalImpactFactors[disposalMethod];
+            
+            // Calculate device impact
+            const ageImpactFactor = Math.max(0.5, Math.min(2.0, deviceAge / 2));
+            const replacementImpactFactor = Math.max(0.5, Math.min(2.0, 3 / replacementFrequency));
+            
+            const deviceImpact = {
+                deviceType: deviceType,
+                displayName: deviceType.charAt(0).toUpperCase() + deviceType.slice(1),
+                age: deviceAge,
+                replacementFrequency: replacementFrequency,
+                disposalMethod: disposalMethod,
+                weight: baseImpact.weight,
+                co2: baseImpact.co2 * ageImpactFactor * replacementImpactFactor * disposalFactor.co2,
+                water: baseImpact.water * ageImpactFactor * replacementImpactFactor * disposalFactor.water,
+                recycling: baseImpact.recycling * disposalFactor.recycling
+            };
+            
+            // Add to user's devices
+            userDevices.push(deviceImpact);
+            
+            // Update device list UI
+            updateDeviceList();
+            
+            // Clear form
+            deviceTypeEl.value = '';
+            deviceAgeEl.value = '';
+            replacementFrequencyEl.value = '';
+            disposalMethodEl.value = '';
+            
+            // Enable calculate button
+            calculateImpactBtn.disabled = false;
+        });
+        
+        // Update device list UI
+        function updateDeviceList() {
+            if (userDevices.length === 0) {
+                noDevicesMsg.style.display = 'block';
+                return;
+            }
+            
+            noDevicesMsg.style.display = 'none';
+            
+            // Clear current list
+            deviceListEl.innerHTML = '';
+            
+            // Add each device
+            userDevices.forEach((device, index) => {
+                const deviceItem = document.createElement('div');
+                deviceItem.className = 'device-item';
+                
+                deviceItem.innerHTML = `
+                    <div class="device-info">
+                        <div class="device-name">${device.displayName}</div>
+                        <div class="device-details">Age: ${device.age} years | Replaced every: ${device.replacementFrequency} years</div>
+                    </div>
+                    <div class="device-impact">${device.co2.toFixed(1)} kg CO₂</div>
+                    <div class="device-actions">
+                        <button data-index="${index}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                
+                deviceListEl.appendChild(deviceItem);
+            });
+            
+            // Add delete event listeners
+            document.querySelectorAll('.device-actions button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    userDevices.splice(index, 1);
+                    updateDeviceList();
+                    
+                    if (userDevices.length === 0) {
+                        calculateImpactBtn.disabled = true;
+                        resultsContainer.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        calculateImpactBtn.addEventListener('click', function() {
+    if (userDevices.length === 0) return;
+    
+    // Calculate totals
+    const totals = userDevices.reduce((acc, device) => {
+        acc.weight += device.weight;
+        acc.co2 += device.co2;
+        acc.water += device.water;
+        acc.recycling += device.recycling * device.weight; // Weighted by device weight
+        return acc;
+    }, { weight: 0, co2: 0, water: 0, recycling: 0 });
+    
+    // Calculate average recycling potential
+    totals.recycling = totals.recycling / totals.weight;
+    
+    // Update results UI
+    document.getElementById('totalWeight').textContent = totals.weight.toFixed(1);
+    document.getElementById('co2Emissions').textContent = totals.co2.toFixed(1);
+    document.getElementById('waterUsage').textContent = Math.round(totals.water).toLocaleString();
+    document.getElementById('recyclingPotential').textContent = totals.recycling.toFixed(1);
+    
+    // Show results
+    resultsContainer.style.display = 'block';
+    
+    // Create the main impact chart
+    createImpactChart();
+    
+    // Create the disposal comparison chart with a slight delay
+    setTimeout(() => {
+        createDisposalComparisonChart();
+        showPersonalizedRecommendations();
+        
+        // Add export button if it doesn't exist
+        if (!document.querySelector('.results-container button.btn')) {
+            addExportFunctionality();
+        }
+    }, 200);
+    
+    // Scroll to results
+    resultsContainer.scrollIntoView({ behavior: 'smooth' });
+});
+        
+        // Create impact chart
+        // Create impact chart
+function createImpactChart() {
+    const ctx = document.getElementById('impactChart').getContext('2d');
+    
+    // Destroy previous chart if it exists
+    if (chart) {
+        chart.destroy();
+    }
+    
+    // Group devices by type
+    const devicesByType = {};
+    userDevices.forEach(device => {
+        if (!devicesByType[device.deviceType]) {
+            devicesByType[device.deviceType] = 0;
+        }
+        devicesByType[device.deviceType] += device.co2;
+    });
+    
+    // Prepare chart data
+    const labels = Object.keys(devicesByType).map(key => key.charAt(0).toUpperCase() + key.slice(1));
+    const data = Object.values(devicesByType);
+    
+    // Create chart
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'CO₂ Emissions (kg)',
+                data: data,
+                backgroundColor: '#81c784',
+                borderColor: '#2e7d32',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'CO₂ Emissions by Device Type',
+                    font: {
+                        size: 16
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.parsed.y.toFixed(1)} kg CO₂`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'CO₂ Emissions (kg)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Device Type'
+                    }
+                }
+            }
+        }
+    });
+}
+        
+        // Function to create the disposal comparison chart
+function createDisposalComparisonChart() {
+    // Group by disposal method
+    const disposalImpact = {
+        recycle: { co2: 0, water: 0, count: 0 },
+        trash: { co2: 0, water: 0, count: 0 },
+        donate: { co2: 0, water: 0, count: 0 },
+        store: { co2: 0, water: 0, count: 0 },
+        trade: { co2: 0, water: 0, count: 0 }
+    };
+    
+    userDevices.forEach(device => {
+        disposalImpact[device.disposalMethod].co2 += device.co2;
+        disposalImpact[device.disposalMethod].water += device.water;
+        disposalImpact[device.disposalMethod].count += 1;
+    });
+    
+    // Create comparison data
+    const disposalLabels = {
+        recycle: "Recycling",
+        trash: "Regular Trash",
+        donate: "Donation",
+        store: "Storage",
+        trade: "Trade-in/Sell"
+    };
+    
+    // Calculate what impact would be if all devices were recycled
+    let totalCO2IfRecycled = 0;
+    userDevices.forEach(device => {
+        const baseImpact = deviceImpactData[device.deviceType];
+        const ageImpactFactor = Math.max(0.5, Math.min(2.0, device.age / 2));
+        const replacementImpactFactor = Math.max(0.5, Math.min(2.0, 3 / device.replacementFrequency));
+        totalCO2IfRecycled += baseImpact.co2 * ageImpactFactor * replacementImpactFactor * disposalImpactFactors.recycle.co2;
+    });
+    
+    // Remove any existing comparison section first
+    const existingComparison = document.querySelector('.comparison-section');
+    if (existingComparison) existingComparison.remove();
+    
+    // Add comparison section to results container
+    const comparisonSection = document.createElement('div');
+    comparisonSection.className = 'comparison-section';
+    comparisonSection.innerHTML = `
+        <h3>Disposal Method Comparison</h3>
+        <div class="impact-chart">
+            <canvas id="disposalComparisonChart"></canvas>
+        </div>
+        <div class="impact-highlight" style="margin-top: 20px; margin-bottom: 40px">
+            <p>If all your devices were recycled, your CO₂ impact would be <strong>${totalCO2IfRecycled.toFixed(1)} kg</strong> instead of 
+            <strong>${userDevices.reduce((total, device) => total + device.co2, 0).toFixed(1)} kg</strong>.</p>
+            <p>That's a <strong>${Math.round((1 - (totalCO2IfRecycled / userDevices.reduce((total, device) => total + device.co2, 0))) * 100)}%</strong> reduction!</p>
+        </div>
+    `;
+    
+    resultsContainer.appendChild(comparisonSection);
+    
+    // Create disposal comparison chart - wait for the canvas to be in the DOM
+    setTimeout(() => {
+        const ctx = document.getElementById('disposalComparisonChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(disposalImpact).map(key => disposalLabels[key]),
+                datasets: [{
+                    label: 'Current CO₂ Emissions (kg)',
+                    data: Object.keys(disposalImpact).map(key => disposalImpact[key].co2),
+                    backgroundColor: '#81c784'
+                }, {
+                    label: 'If All Recycled (kg)',
+                    data: Object.keys(disposalImpact).map(key => {
+                        const devices = userDevices.filter(d => d.disposalMethod === key);
+                        let recycledImpact = 0;
+                        devices.forEach(device => {
+                            const baseImpact = deviceImpactData[device.deviceType];
+                            const ageImpactFactor = Math.max(0.5, Math.min(2.0, device.age / 2));
+                            const replacementImpactFactor = Math.max(0.5, Math.min(2.0, 3 / device.replacementFrequency));
+                            recycledImpact += baseImpact.co2 * ageImpactFactor * replacementImpactFactor * disposalImpactFactors.recycle.co2;
+                        });
+                        return recycledImpact;
+                    }),
+                    backgroundColor: '#2e7d32'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'CO₂ Emissions (kg)'
+                        }
+                    }
+                }
+            }
+        });
+    }, 100);
+}
+        
+        // Add function to show recommendations based on user's devices
+        function showPersonalizedRecommendations() {
+            // Analyze user's devices and disposal methods
+            const hasHighImpactDevices = userDevices.some(device => 
+                ['desktop', 'laptop', 'tv'].includes(device.deviceType) && device.disposalMethod === 'trash'
+            );
+            
+            const shortReplacementCycle = userDevices.some(device => device.replacementFrequency < 2);
+            
+            const storesDevices = userDevices.some(device => device.disposalMethod === 'store');
+            
+            // Create recommendations section
+            const recommendationsSection = document.createElement('div');
+            recommendationsSection.className = 'recommendations-section';
+            recommendationsSection.innerHTML = `
+                <div class="section-title">
+                    <h2>Your Personalized Recommendations</h2>
+                </div>
+                <div class="tips-grid">
+                    ${hasHighImpactDevices ? `
+                        <div class="tip-card">
+                            <h4><i class="fas fa-exclamation-triangle"></i> High-Impact Alert</h4>
+                            <p>Your large devices (computers, TVs) contribute significantly to e-waste when thrown in regular trash. 
+                            Consider recycling through manufacturer take-back programs or certified e-waste recyclers.</p>
+                        </div>
+                    ` : ''}
+                    
+                    ${shortReplacementCycle ? `
+                        <div class="tip-card">
+                            <h4><i class="fas fa-clock"></i> Extend Device Lifespan</h4>
+                            <p>You're replacing some devices frequently. Consider repair options, component upgrades, and protective 
+                            cases to extend their lifespan. Even an extra year of use significantly reduces environmental impact.</p>
+                        </div>
+                    ` : ''}
+                    
+                    ${storesDevices ? `
+                        <div class="tip-card">
+                            <h4><i class="fas fa-box-open"></i> Stored Device Action</h4>
+                            <p>You have devices in storage that could be put to better use. Consider donating working devices to 
+                            schools or nonprofits, or recycling them to recover valuable materials.</p>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-leaf"></i> General Advice</h4>
+                        <p>The average person generates about 7kg of e-waste per year. By recycling properly and extending device 
+                        lifespans, you can significantly reduce your environmental footprint.</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons" style="margin-top: 20px">
+                    <a href="/recycling-guide" class="btn">Find Recycling Centers</a>
+                    <a href="/info-hub" class="btn btn-secondary">Learn More About E-Waste</a>
+                </div>
+            `;
+            
+            resultsContainer.appendChild(recommendationsSection);
+        }
+        
+        // Enhance calculate impact function to add comparison and recommendations
+        const originalCalculateImpact = calculateImpactBtn.onclick;
+        calculateImpactBtn.onclick = function() {
+            // Run original calculation first
+            originalCalculateImpact.call(this);
+            
+            // Then add our enhancements (with slight delay to let the chart render)
+            setTimeout(() => {
+                // Remove any existing comparison and recommendations sections
+                const existingComparison = document.querySelector('.comparison-section');
+                if (existingComparison) existingComparison.remove();
+                
+                const existingRecommendations = document.querySelector('.recommendations-section');
+                if (existingRecommendations) existingRecommendations.remove();
+                
+                // Add new sections
+                createDisposalComparisonChart();
+                showPersonalizedRecommendations();
+            }, 500);
+        };
+        
+        // Add export results functionality
+        function addExportFunctionality() {
+            const exportButton = document.createElement('button');
+            exportButton.className = 'btn';
+            exportButton.innerHTML = '<i class="fas fa-download"></i> Export Results';
+            exportButton.style.marginTop = '2rem';
+            
+            exportButton.addEventListener('click', function() {
+                // Generate report text
+                let reportText = "E-WASTE CALCULATOR RESULTS\n";
+                reportText += "==========================\n\n";
+                
+                reportText += "DEVICES:\n";
+                userDevices.forEach((device, i) => {
+                    reportText += `${i+1}. ${device.displayName} (${device.age} years old, replaced every ${device.replacementFrequency} years, ${device.disposalMethod})\n`;
+                    reportText += `   - Weight: ${device.weight.toFixed(2)} kg\n`;
+                    reportText += `   - CO2 Impact: ${device.co2.toFixed(2)} kg\n`;
+                    reportText += `   - Water Usage: ${Math.round(device.water)} liters\n`;
+                    reportText += `   - Recycling Potential: ${device.recycling.toFixed(1)}%\n\n`;
+                });
+                
+                reportText += "TOTAL IMPACT:\n";
+                const totals = userDevices.reduce((acc, device) => {
+                    acc.weight += device.weight;
+                    acc.co2 += device.co2;
+                    acc.water += device.water;
+                    acc.recycling += device.recycling * device.weight;
+                    return acc;
+                }, { weight: 0, co2: 0, water: 0, recycling: 0 });
+                
+                totals.recycling = totals.recycling / totals.weight;
+                
+                reportText += `- Total E-Waste: ${totals.weight.toFixed(2)} kg\n`;
+                reportText += `- Total CO2 Emissions: ${totals.co2.toFixed(2)} kg\n`;
+                reportText += `- Total Water Usage: ${Math.round(totals.water)} liters\n`;
+                reportText += `- Average Recycling Potential: ${totals.recycling.toFixed(1)}%\n\n`;
+                
+                reportText += "RECOMMENDATIONS:\n";
+                reportText += "- Recycle all electronic devices through certified e-waste recyclers\n";
+                reportText += "- Extend device lifespans through proper maintenance and repairs\n";
+                reportText += "- Consider donating or selling working devices you no longer need\n";
+                reportText += "- Look for energy-efficient and eco-friendly devices when purchasing\n\n";
+                
+                reportText += "Generated by E-Waste Awareness Calculator on " + new Date().toLocaleDateString();
+                
+                // Create download link
+                const element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(reportText));
+                element.setAttribute('download', 'e-waste-report.txt');
+                element.style.display = 'none';
+                
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            });
+            
+            resultsContainer.appendChild(exportButton);
+        }
+        
+        // Add export functionality when results are shown
+        const originalShowResults = calculateImpactBtn.onclick;
+        calculateImpactBtn.onclick = function() {
+            originalShowResults.call(this);
+            
+            // Add export button if it doesn't exist
+            if (!document.querySelector('.results-container button.btn')) {
+                setTimeout(addExportFunctionality, 600);
+            }
+        };
+        
+        // Add example devices for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add 'Try Example Data' button
+            const exampleButton = document.createElement('button');
+            exampleButton.className = 'btn btn-secondary';
+            exampleButton.textContent = 'Try Example Data';
+            exampleButton.style.marginLeft = '1rem';
+            document.getElementById('addDeviceBtn').insertAdjacentElement('afterend', exampleButton);
+            
+            exampleButton.addEventListener('click', function() {
+                // Clear existing devices
+                userDevices = [];
+                
+                // Add example devices
+                const exampleDevices = [
+                    {
+                        deviceType: 'smartphone',
+                        age: 2,
+                        replacementFrequency: 2,
+                        disposalMethod: 'trade'
+                    },
+                    {
+                        deviceType: 'laptop',
+                        age: 4,
+                        replacementFrequency: 4,
+                        disposalMethod: 'store'
+                    },
+                    {
+                        deviceType: 'tv',
+                        age: 5,
+                        replacementFrequency: 8,
+                        disposalMethod: 'trash'
+                    },
+                    {
+                        deviceType: 'tablet',
+                        age: 3,
+                        replacementFrequency: 3,
+                        disposalMethod: 'recycle'
+                    }
+                ];
+                
+                // Process and add each example device
+                exampleDevices.forEach(example => {
+                    const baseImpact = deviceImpactData[example.deviceType];
+                    const disposalFactor = disposalImpactFactors[example.disposalMethod];
+                    
+                    // Calculate impact factors
+                    const ageImpactFactor = Math.max(0.5, Math.min(2.0, example.age / 2));
+                    const replacementImpactFactor = Math.max(0.5, Math.min(2.0, 3 / example.replacementFrequency));
+                    
+                    // Create device impact object
+                    const deviceImpact = {
+                        deviceType: example.deviceType,
+                        displayName: example.deviceType.charAt(0).toUpperCase() + example.deviceType.slice(1),
+                        age: example.age,
+                        replacementFrequency: example.replacementFrequency,
+                        disposalMethod: example.disposalMethod,
+                        weight: baseImpact.weight,
+                        co2: baseImpact.co2 * ageImpactFactor * replacementImpactFactor * disposalFactor.co2,
+                        water: baseImpact.water * ageImpactFactor * replacementImpactFactor * disposalFactor.water,
+                        recycling: baseImpact.recycling * disposalFactor.recycling
+                    };
+                    
+                    // Add to user devices
+                    userDevices.push(deviceImpact);
+                });
+                
+                // Update UI
+                updateDeviceList();
+                calculateImpactBtn.disabled = false;
+                
+                // Scroll to device list
+                deviceListEl.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

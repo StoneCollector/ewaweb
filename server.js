@@ -3,6 +3,7 @@ const path = require('path');
 const serverless = require('serverless-http');
 const Redis = require('ioredis');
 const redis = new Redis(process.env.REDIS_URL); // uses REDIS_URL
+// const port = process.env.PORT || 3000;
 
 
 const app = express();
@@ -66,7 +67,7 @@ const blogPosts = [
     preview: "Electronic waste is a growing global problem. According to UN estimates, over 50 million tons of e-waste are generated annually, with only a small percentage being properly recycled. This article explores the environmental and social impacts.",
     date: "March 28, 2025",
     source: "Environmental Science Journal",
-    image: "/api/placeholder/400/300",
+    image: "images/Screen Shot 2023-10-31 at 8.30.56 PM.png",
     tags: ["sustainability", "global impact", "recycling"],
     url: "https://www.ilo.org/publications/global-impact-e-waste-addressing-challenge"
   },
@@ -76,7 +77,7 @@ const blogPosts = [
     preview: "New technologies are emerging to tackle the e-waste crisis. From automated sorting systems to advanced metal recovery processes, these innovations are making recycling more efficient and economically viable.",
     date: "March 15, 2025",
     source: "Tech Sustainability",
-    image: "/api/placeholder/400/300",
+    image: "images/1200px-Heap_metal.webp",
     tags: ["innovation", "technology", "recycling"],
     url: "https://ecoverva.com/from-trash-to-treasure-exploring-e-waste-recycling-technologies-in-india"
   },
@@ -86,7 +87,7 @@ const blogPosts = [
     preview: "The concept of a circular economy offers solutions to the e-waste problem. By designing products for durability, repairability, and eventual recycling, manufacturers can reduce the environmental impact of electronics.",
     date: "March 5, 2025",
     source: "Circular Economy Alliance",
-    image: "/api/placeholder/400/300",
+    image: "images/thisisengineering-raeng-32PpagSzeGs-unsplash.webp",
     tags: ["sustainability", "circular economy", "design"],
     url: "https://ecircular.com/circular-economy-in-electronics-role-e-waste-recycling"
   },
@@ -96,7 +97,7 @@ const blogPosts = [
     preview: "Governments around the world are implementing stricter e-waste regulations. This article examines recent policy changes, including extended producer responsibility laws and import/export restrictions.",
     date: "February 22, 2025",
     source: "Policy Review",
-    image: "/api/placeholder/400/300",
+    image: "images/download (1).jpeg",
     tags: ["policy", "regulation", "government"],
     url: "https://recyc.ly/blog/itad-and-e-waste-1/predicting-e-waste-regulation-changes-for-2025-157"
   },
@@ -106,7 +107,7 @@ const blogPosts = [
     preview: "Improper handling of e-waste poses significant health risks. Toxic substances like lead, mercury, and flame retardants can cause neurological damage, respiratory problems, and other health issues when released into the environment.",
     date: "February 12, 2025",
     source: "Environmental Health Perspectives",
-    image: "/api/placeholder/400/300",
+    image: "images/dump-full-of-old-computers-and-gadgets-picture-id172777435.jpg",
     tags: ["health", "toxics", "safety"],
     url: "https://techreset.com/itad-guides/e-waste-and-human-health-hazards"
   },
@@ -116,69 +117,9 @@ const blogPosts = [
     preview: "Leading tech companies are implementing comprehensive e-waste management programs. This article showcases best practices in corporate sustainability, from take-back programs to eco-design initiatives.",
     date: "January 30, 2025",
     source: "Business Sustainability",
-    image: "/api/placeholder/400/300",
+    image: "images/Untitled-design-2.webp",
     tags: ["corporate", "sustainability", "business"],
     url: "https://namoewaste.com/how-to-create-corporate-e-waste-recycling-plan"
-  },
-  {
-    id: 7,
-    title: "DIY Electronics Repair: Extending Product Life",
-    preview: "The right-to-repair movement is gaining momentum. Learn how repairing your own electronics can extend product life, save money, and reduce environmental impact through this practical guide.",
-    date: "January 18, 2025",
-    source: "Sustainable Living Guide",
-    image: "/api/placeholder/400/300",
-    tags: ["DIY", "repair", "consumer tips"],
-    url: "https://www.ifixit.com/Right-to-Repair/E-waste"
-  },
-  {
-    id: 8,
-    title: "Urban Mining: Recovering Precious Metals from E-Waste",
-    preview: "E-waste contains valuable metals like gold, silver, and palladium. This article explores how 'urban mining' of electronic waste can be more lucrative than traditional mining while reducing environmental impact.",
-    date: "January 5, 2025",
-    source: "Resources Technology",
-    image: "/api/placeholder/400/300",
-    tags: ["urban mining", "recycling", "innovation"],
-    url: "https://www.sciencedirect.com/science/article/pii/S2666789422000125"
-  },
-  {
-    id: 9,
-    title: "E-Waste in Developing Countries: Challenges and Solutions",
-    preview: "Developing countries often bear the brunt of the global e-waste problem. This article examines the social and environmental challenges faced by these nations and presents innovative community-based solutions.",
-    date: "December 20, 2024",
-    source: "Global Development Review",
-    image: "/api/placeholder/400/300",
-    tags: ["developing countries", "social impact", "sustainability"],
-    url: "https://www.unep.org/resources/report/global-e-waste-monitor-2020"
-  },
-  {
-    id: 10,
-    title: "The Future of Electronics: Biodegradable Components",
-    preview: "Researchers are developing biodegradable electronic components that could revolutionize the industry. This article explores cutting-edge materials like cellulose-based circuits and biodegradable batteries.",
-    date: "December 5, 2024",
-    source: "Future Materials",
-    image: "/api/placeholder/400/300",
-    tags: ["innovation", "materials", "research"],
-    url: "https://www.nature.com/subjects/biodegradable-electronics"
-  },
-  {
-    id: 11,
-    title: "E-Waste Education: Teaching Sustainability to the Next Generation",
-    preview: "Educational programs focused on e-waste management are emerging in schools and universities. This article highlights successful initiatives and provides resources for educators.",
-    date: "November 22, 2024",
-    source: "Environmental Education Today",
-    image: "/api/placeholder/400/300",
-    tags: ["education", "youth", "sustainability"],
-    url: "https://www.unesco.org/en/articles/e-waste-academy"
-  },
-  {
-    id: 12,
-    title: "The Economics of E-Waste: Market Trends and Opportunities",
-    preview: "The e-waste recycling market is growing rapidly. This analysis examines current economic trends, investment opportunities, and the business case for sustainable electronics management.",
-    date: "November 10, 2024",
-    source: "Sustainable Business Quarterly",
-    image: "/api/placeholder/400/300",
-    tags: ["economics", "business", "market analysis"],
-    url: "https://www.weforum.org/agenda/2019/01/how-a-circular-approach-can-turn-e-waste-into-a-golden-opportunity/"
   }
 ];
 
@@ -274,12 +215,13 @@ app.get('/about', (req, res) => {
 app.get('/quiz', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/quiz.html'));
 });
-
-// const port = process.env.PORT || 3000;
-
-// app.listen(port, () => {
-//   console.log(`E-Waste Awareness website server running at http://localhost:${port}`);
-// });
 // Export for Vercel
 module.exports = app;
 module.exports.handler = serverless(app);
+
+
+
+// Start the server
+// app.listen(port, () => {
+//   console.log(`E-Waste Awareness website server running at http://localhost:${port}`);
+// });

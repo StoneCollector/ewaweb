@@ -267,13 +267,19 @@ app.get('/blog', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/blog.html'));
 });
 
-app.get('/contact', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/contact.html'));
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views/aboutus.html'));
 });
 
 app.get('/quiz', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/quiz.html'));
 });
+
+// const port = process.env.PORT || 3000;
+
+// app.listen(port, () => {
+//   console.log(`E-Waste Awareness website server running at http://localhost:${port}`);
+// });
 // Export for Vercel
 module.exports = app;
 module.exports.handler = serverless(app);
